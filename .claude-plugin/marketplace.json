@@ -141,6 +141,71 @@
       },
       "category": "mcp",
       "version": "0.1.3"
+    },
+    {
+      "name": "agent-meshy-wrapper",
+      "description": "Pairs the official Meshy MCP server with a skill so Claude can generate, refine, rig, animate and export 3D assets from text or images - tracking async jobs and credit cost - instead of hand-driving the Meshy API.",
+      "source": {
+        "source": "github",
+        "repo": "seretos-agents/agent-meshy-wrapper",
+        "ref": "agent-meshy-wrapper--v0.0.2"
+      },
+      "category": "skill",
+      "version": "0.0.2",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-meshy-wrapper/agent-meshy-wrapper--v0.0.2/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-meshy-wrapper/agent-meshy-wrapper--v0.0.2/description.md",
+      "tags": [
+        "3d",
+        "creative",
+        "ai"
+      ]
+    },
+    {
+      "name": "agent-line-feed-guard",
+      "description": "Repairs CRLF line endings in the files Claude Code parses, so a subagent, skill, or command never silently fails to load.",
+      "source": {
+        "source": "github",
+        "repo": "seretos-agents/agent-line-feed-guard",
+        "ref": "agent-line-feed-guard--v0.0.2"
+      },
+      "category": "hook",
+      "version": "0.0.2",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-line-feed-guard/agent-line-feed-guard--v0.0.2/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-line-feed-guard/agent-line-feed-guard--v0.0.2/description.md",
+      "tags": [
+        "claude",
+        "hooks",
+        "windows",
+        "line-endings"
+      ]
+    },
+    {
+      "name": "agent-blender-wrapper",
+      "description": "Pairs the external BlenderMCP server with a skill so Claude can drive Blender - inspecting scenes, creating and modifying objects, applying materials, and sourcing assets - through structured MCP operations instead of blind Python scripting.",
+      "source": {
+        "source": "github",
+        "repo": "seretos-agents/agent-blender-wrapper",
+        "ref": "agent-blender-wrapper--v0.0.3"
+      },
+      "category": "skill",
+      "version": "0.0.3",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-blender-wrapper/agent-blender-wrapper--v0.0.3/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-blender-wrapper/agent-blender-wrapper--v0.0.3/description.md",
+      "tags": [
+        "3d",
+        "creative"
+      ]
+    },
+    {
+      "name": "agent-chrome-wrapper",
+      "description": "Provides an MCP that gives agents access to Chrome, starting a separate Chrome instance for each session.",
+      "source": {
+        "source": "github",
+        "repo": "seretos-agents/agent-chrome-wrapper",
+        "ref": "agent-chrome-wrapper--v0.0.7"
+      },
+      "category": "mcp",
+      "version": "0.0.7"
     }
   ]
 }
