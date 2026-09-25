@@ -147,6 +147,17 @@
         "3d",
         "creative"
       ]
+    },
+    {
+      "name": "agent-chrome-wrapper",
+      "description": "Provides an MCP that gives agents access to Chrome, starting a separate Chrome instance for each session.",
+      "source": {
+        "source": "github",
+        "repo": "seretos-agents/agent-chrome-wrapper",
+        "ref": "agent-chrome-wrapper--v0.0.7"
+      },
+      "category": "mcp",
+      "version": "0.0.7"
     }
   ]
 }
