@@ -8,6 +8,23 @@
   },
   "plugins": [
     {
+      "name": "agent-worktree",
+      "description": "MCP server for git worktree lifecycle management. Create/list/remove worktrees with branch handling, run per-project setup scripts on creation, and detect uncommitted changes before destructive operations.",
+      "source": {
+        "source": "github",
+        "repo": "seretos-agents/agent-worktree",
+        "ref": "agent-worktree--v0.3.3"
+      },
+      "category": "mcp",
+      "version": "0.3.3",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-worktree/agent-worktree--v0.3.3/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-worktree/agent-worktree--v0.3.3/description.md",
+      "tags": [
+        "git",
+        "environment"
+      ]
+    },
+    {
       "name": "agent-autonomous-developer",
       "description": "Takes one work package (a ticket or an epic with all its children) from a prepared worktree to a pull request with a GREEN CI pipeline, for projects in any language (stack auto-detected). One headless skill \u2014 process-developer \u2014 backed by six subagents (context-extractor, planner, plan-critic, developer, test-critic, reviewer) with isolated critics, three-round caps and machine-readable progress events on the ticket. Never asks a human. Drives the agent-project-issues MCP.",
       "source": {
