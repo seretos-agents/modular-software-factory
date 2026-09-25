@@ -132,6 +132,25 @@
       ]
     },
     {
+      "name": "agent-line-feed-guard",
+      "description": "Repairs CRLF line endings in the files Claude Code parses, so a subagent, skill, or command never silently fails to load.",
+      "source": {
+        "source": "github",
+        "repo": "seretos-agents/agent-line-feed-guard",
+        "ref": "agent-line-feed-guard--v0.0.2"
+      },
+      "category": "hook",
+      "version": "0.0.2",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-line-feed-guard/agent-line-feed-guard--v0.0.2/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-line-feed-guard/agent-line-feed-guard--v0.0.2/description.md",
+      "tags": [
+        "claude",
+        "hooks",
+        "windows",
+        "line-endings"
+      ]
+    },
+    {
       "name": "agent-blender-wrapper",
       "description": "Pairs the external BlenderMCP server with a skill so Claude can drive Blender - inspecting scenes, creating and modifying objects, applying materials, and sourcing assets - through structured MCP operations instead of blind Python scripting.",
       "source": {
