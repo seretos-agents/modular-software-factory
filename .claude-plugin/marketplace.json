@@ -6,5 +6,22 @@
   "metadata": {
     "version": "1.0.0"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "agent-serena-wrapper",
+      "description": "Pairs the external Serena MCP server with a skill so Claude works with code through token-efficient semantic operations instead of reading whole files.",
+      "source": {
+        "source": "github",
+        "repo": "seretos-agents/agent-serena-wrapper",
+        "ref": "agent-serena-wrapper--v0.1.6"
+      },
+      "category": "skill",
+      "version": "0.1.6",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-serena-wrapper/agent-serena-wrapper--v0.1.6/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-serena-wrapper/agent-serena-wrapper--v0.1.6/description.md",
+      "tags": [
+        "coding"
+      ]
+    }
+  ]
 }
