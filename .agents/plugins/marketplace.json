@@ -120,6 +120,45 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Productivity"
+    },
+    {
+      "name": "agent-line-feed-guard",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/seretos-agents/agent-line-feed-guard.git",
+        "ref": "agent-line-feed-guard--v0.0.2"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "agent-blender-wrapper",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/seretos-agents/agent-blender-wrapper.git",
+        "ref": "agent-blender-wrapper--v0.0.3"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    },
+    {
+      "name": "agent-chrome-wrapper",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/seretos-agents/agent-chrome-wrapper.git",
+        "ref": "agent-chrome-wrapper--v0.0.7"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
     }
   ]
 }
