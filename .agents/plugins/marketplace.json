@@ -3,5 +3,19 @@
   "interface": {
     "displayName": "Modular Software Factory"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "agent-worktree",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/seretos-agents/agent-worktree.git",
+        "ref": "agent-worktree--v0.3.3"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
 }
