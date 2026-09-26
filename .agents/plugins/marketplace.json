@@ -22,7 +22,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-unity-wrapper.git",
-        "ref": "agent-unity-wrapper--v0.2.4"
+        "ref": "agent-unity-wrapper--v0.2.5"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -35,7 +35,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-comfy.git",
-        "ref": "agent-comfy--v0.0.11"
+        "ref": "agent-comfy--v0.1.0"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -61,7 +61,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-ticket-orchestrator.git",
-        "ref": "agent-ticket-orchestrator--v0.3.2"
+        "ref": "agent-ticket-orchestrator--v0.3.3"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -74,7 +74,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-worktree.git",
-        "ref": "agent-worktree--v0.3.3"
+        "ref": "agent-worktree--v0.3.4"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -87,7 +87,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-autonomous-developer.git",
-        "ref": "agent-autonomous-developer--v0.5.1"
+        "ref": "agent-autonomous-developer--v0.5.3"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -100,7 +100,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-project-issues.git",
-        "ref": "agent-project-issues--v0.3.11"
+        "ref": "agent-project-issues--v0.4.0"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -126,7 +126,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-meshy-wrapper.git",
-        "ref": "agent-meshy-wrapper--v0.0.2"
+        "ref": "agent-meshy-wrapper--v0.0.3"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -139,7 +139,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-line-feed-guard.git",
-        "ref": "agent-line-feed-guard--v0.0.2"
+        "ref": "agent-line-feed-guard--v0.0.3"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -152,7 +152,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-blender-wrapper.git",
-        "ref": "agent-blender-wrapper--v0.0.3"
+        "ref": "agent-blender-wrapper--v0.0.4"
       },
       "policy": {
         "installation": "AVAILABLE",
@@ -165,7 +165,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/seretos-agents/agent-chrome-wrapper.git",
-        "ref": "agent-chrome-wrapper--v0.0.7"
+        "ref": "agent-chrome-wrapper--v0.0.8"
       },
       "policy": {
         "installation": "AVAILABLE",

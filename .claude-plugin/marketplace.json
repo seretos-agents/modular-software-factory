@@ -29,12 +29,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-unity-wrapper",
-        "ref": "agent-unity-wrapper--v0.2.4"
+        "ref": "agent-unity-wrapper--v0.2.5"
       },
       "category": "skill",
-      "version": "0.2.4",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-unity-wrapper/agent-unity-wrapper--v0.2.4/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-unity-wrapper/agent-unity-wrapper--v0.2.4/description.md"
+      "version": "0.2.5",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-unity-wrapper/agent-unity-wrapper--v0.2.5/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-unity-wrapper/agent-unity-wrapper--v0.2.5/description.md"
     },
     {
       "name": "agent-comfy",
@@ -42,12 +42,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-comfy",
-        "ref": "agent-comfy--v0.0.11"
+        "ref": "agent-comfy--v0.1.0"
       },
       "category": "mcp",
-      "version": "0.0.11",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-comfy/agent-comfy--v0.0.11/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-comfy/agent-comfy--v0.0.11/description.md"
+      "version": "0.1.0",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-comfy/agent-comfy--v0.1.0/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-comfy/agent-comfy--v0.1.0/description.md"
     },
     {
       "name": "agent-autonomous-prompt-engineer",
@@ -68,12 +68,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-ticket-orchestrator",
-        "ref": "agent-ticket-orchestrator--v0.3.2"
+        "ref": "agent-ticket-orchestrator--v0.3.3"
       },
       "category": "skill",
-      "version": "0.3.2",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-ticket-orchestrator/agent-ticket-orchestrator--v0.3.2/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-ticket-orchestrator/agent-ticket-orchestrator--v0.3.2/description.md"
+      "version": "0.3.3",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-ticket-orchestrator/agent-ticket-orchestrator--v0.3.3/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-ticket-orchestrator/agent-ticket-orchestrator--v0.3.3/description.md"
     },
     {
       "name": "agent-worktree",
@@ -81,12 +81,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-worktree",
-        "ref": "agent-worktree--v0.3.3"
+        "ref": "agent-worktree--v0.3.4"
       },
       "category": "mcp",
-      "version": "0.3.3",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-worktree/agent-worktree--v0.3.3/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-worktree/agent-worktree--v0.3.3/description.md",
+      "version": "0.3.4",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-worktree/agent-worktree--v0.3.4/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-worktree/agent-worktree--v0.3.4/description.md",
       "tags": [
         "git",
         "environment"
@@ -98,12 +98,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-autonomous-developer",
-        "ref": "agent-autonomous-developer--v0.5.1"
+        "ref": "agent-autonomous-developer--v0.5.3"
       },
       "category": "skill",
-      "version": "0.5.1",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-autonomous-developer/agent-autonomous-developer--v0.5.1/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-autonomous-developer/agent-autonomous-developer--v0.5.1/description.md",
+      "version": "0.5.3",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-autonomous-developer/agent-autonomous-developer--v0.5.3/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-autonomous-developer/agent-autonomous-developer--v0.5.3/description.md",
       "tags": [
         "git",
         "organisation",
@@ -117,12 +117,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-project-issues",
-        "ref": "agent-project-issues--v0.3.11"
+        "ref": "agent-project-issues--v0.4.0"
       },
       "category": "mcp",
-      "version": "0.3.11",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-project-issues/agent-project-issues--v0.3.11/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-project-issues/agent-project-issues--v0.3.11/description.md",
+      "version": "0.4.0",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-project-issues/agent-project-issues--v0.4.0/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-project-issues/agent-project-issues--v0.4.0/description.md",
       "tags": [
         "git",
         "github",
@@ -148,12 +148,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-meshy-wrapper",
-        "ref": "agent-meshy-wrapper--v0.0.2"
+        "ref": "agent-meshy-wrapper--v0.0.3"
       },
       "category": "skill",
-      "version": "0.0.2",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-meshy-wrapper/agent-meshy-wrapper--v0.0.2/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-meshy-wrapper/agent-meshy-wrapper--v0.0.2/description.md",
+      "version": "0.0.3",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-meshy-wrapper/agent-meshy-wrapper--v0.0.3/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-meshy-wrapper/agent-meshy-wrapper--v0.0.3/description.md",
       "tags": [
         "3d",
         "creative",
@@ -166,12 +166,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-line-feed-guard",
-        "ref": "agent-line-feed-guard--v0.0.2"
+        "ref": "agent-line-feed-guard--v0.0.3"
       },
       "category": "hook",
-      "version": "0.0.2",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-line-feed-guard/agent-line-feed-guard--v0.0.2/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-line-feed-guard/agent-line-feed-guard--v0.0.2/description.md",
+      "version": "0.0.3",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-line-feed-guard/agent-line-feed-guard--v0.0.3/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-line-feed-guard/agent-line-feed-guard--v0.0.3/description.md",
       "tags": [
         "claude",
         "hooks",
@@ -185,12 +185,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-blender-wrapper",
-        "ref": "agent-blender-wrapper--v0.0.3"
+        "ref": "agent-blender-wrapper--v0.0.4"
       },
       "category": "skill",
-      "version": "0.0.3",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-blender-wrapper/agent-blender-wrapper--v0.0.3/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-blender-wrapper/agent-blender-wrapper--v0.0.3/description.md",
+      "version": "0.0.4",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-blender-wrapper/agent-blender-wrapper--v0.0.4/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-blender-wrapper/agent-blender-wrapper--v0.0.4/description.md",
       "tags": [
         "3d",
         "creative"
@@ -202,10 +202,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-chrome-wrapper",
-        "ref": "agent-chrome-wrapper--v0.0.7"
+        "ref": "agent-chrome-wrapper--v0.0.8"
       },
       "category": "mcp",
-      "version": "0.0.7"
+      "version": "0.0.8",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-chrome-wrapper/agent-chrome-wrapper--v0.0.8/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-chrome-wrapper/agent-chrome-wrapper--v0.0.8/description.md"
     }
   ]
 }
