@@ -1,14 +1,20 @@
 # modular-software-factory
 
-Metadata only — no plugin source, no binaries, no build pipeline live here. Claude Code (and other compatible agent CLIs) read this repo when a user runs `/plugin marketplace add seretos-agents/modular-software-factory`.
+No plugin source, no plugin binaries live here — Claude Code (and other compatible agent CLIs) read this repo's marketplace registry when a user runs `/plugin marketplace add seretos-agents/modular-software-factory`. The repo does host one small build/test pipeline of its own: the static GitHub Pages site under `site/` (see "GitHub Pages site" below).
 
 ## Layout
 
 ```
 .claude-plugin/marketplace.json   # the plugin registry, single source of truth
 .agents/plugins/marketplace.json  # Codex's mirror of the same plugins
+.github/ISSUE_TEMPLATE/           # shared ecosystem issue forms (bug/feature/task/epic)
 .github/workflows/
   update-registry.yml             # thin receiver: repository_dispatch -> shared action, mode: pr
+  ci.yml                          # runs `npm test` on every PR
+  deploy-pages.yml                # builds and deploys site/ to GitHub Pages
+design/                           # Pages-site design reference (see "GitHub Pages site")
+site/                             # the GitHub Pages site's source (plain HTML/CSS/JS)
+package.json                      # test tooling for site/ only (jsdom + node --test)
 README.md                         # user-facing
 AGENTS.md                         # this file
 ```
@@ -73,6 +79,15 @@ Manual PRs against `.claude-plugin/marketplace.json` are equally valid for hand-
 
 - **Migrating the old `Seretos/agent-marketplace` entries.** Both new registries start empty. A separate follow-up.
 - **App registry** (`app-marketplace.json`, `app-release` dispatch). The old marketplace tracked downloadable apps separately; not needed here yet.
-- **GitHub Pages catalog site.** The old marketplace deployed a static `site/` to Pages; this will be rebuilt separately later.
 - **The [Agent Plugins 1.0](https://agent-plugins.org/) open standard** as a third registry format. Worth adding once the sender-side payload contract is extended for it.
 - **Updating the sender templates** in `agent-plugins` (the three scaffolds that currently `repository_dispatch` to `Seretos/agent-marketplace`) to point at this repo and staging. A separate, later step.
+
+## GitHub Pages site
+
+`site/` is deployed to `https://seretos-agents.github.io/modular-software-factory/` by `deploy-pages.yml` (push to `main` touching `site/**`, or manual `workflow_dispatch`). It is a plain HTML/CSS/JS static site, no framework, no build step.
+
+`design/mockup.html` (+ `design/README.md`) is the site's design reference: the original mockup's HTML/CSS with all JavaScript stripped out on purpose. Match its layout, colors and structure when extending the site — but write new interactivity from scratch rather than porting logic from elsewhere; the point of stripping the script was to force that.
+
+`ci.yml` runs `npm test` (Node's built-in test runner + jsdom, see `site/*.test.js`) on every pull request only — it never runs on `push` or `workflow_dispatch`, so it can't gate anything other than a PR review.
+
+Currently shipped: the sticky header and the two top-level tabs ("The System" / "Plugins"), switching via URL hash, both tab bodies still empty placeholders. Their real content (the process-line board, the plugin catalog) is separate future work.
