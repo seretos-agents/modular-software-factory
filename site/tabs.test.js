@@ -12,6 +12,10 @@ test('activeTabFromHash recognizes the plugins hash', () => {
   assert.equal(activeTabFromHash('#plugins'), 'plugins');
 });
 
+test('TEMP: deliberately broken assertion, proving CI reports red', () => {
+  assert.equal(activeTabFromHash('#plugins'), 'system');
+});
+
 function buildDom(hash) {
   return new JSDOM(
     `<!doctype html><html><body>
