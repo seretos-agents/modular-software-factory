@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modular Software Factory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="top">
+<header class="nav">
+<div class="wrap">
+<a class="brand" href="#system">
+<svg width="24" height="24" viewBox="0 0 30 30" aria-hidden="true"><rect x="1" y="1" width="8" height="8" fill="#E8E5DD"/><rect x="11" y="1" width="8" height="8" fill="#E8E5DD"/><rect x="21" y="1" width="8" height="8" fill="none" stroke="#E8E5DD" stroke-width="1.5"/><rect x="1" y="11" width="8" height="8" fill="none" stroke="#E8E5DD" stroke-width="1.5"/><rect x="11" y="11" width="8" height="8" fill="#FF8A57"/><rect x="21" y="11" width="8" height="8" fill="#E8E5DD"/><rect x="1" y="21" width="8" height="8" fill="#E8E5DD"/><rect x="11" y="21" width="8" height="8" fill="none" stroke="#E8E5DD" stroke-width="1.5"/><rect x="21" y="21" width="8" height="8" fill="#E8E5DD"/></svg>
+<span>Modular Software Factory</span>
+</a>
+<div class="navr">
+<nav class="tabs" aria-label="Main">
+<a href="#system" data-tab="system">The System</a>
+<a href="#plugins" data-tab="plugins">Plugins</a>
+</nav>
+<a class="gh" href="https://github.com/seretos-agents/modular-software-factory" target="_blank" rel="noopener" aria-label="GitHub">
+<span>GitHub</span>
+<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg>
+</a>
+</div>
+</div>
+</header>
+</div>
+
+<main>
+<section class="wrap page" data-page="system">
+<p class="placeholder">The System — coming soon.</p>
+</section>
+<section class="wrap page" data-page="plugins" hidden>
+<p class="placeholder">Plugins — coming soon.</p>
+</section>
+</main>
+
+<script type="module">
+import { initTabs } from './tabs.js';
+initTabs(document, window);
+</script>
+</body>
+</html>
