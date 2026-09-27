@@ -2,6 +2,11 @@ name: CI
 
 on:
   pull_request:
+    paths:
+      - 'site/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/ci.yml'
 
 jobs:
   test:
