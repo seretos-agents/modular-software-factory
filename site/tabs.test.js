@@ -1,5 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 import { activeTabFromHash, applyActiveTab, initTabs } from './tabs.js';
 
@@ -56,4 +57,29 @@ test('initTabs syncs state on load and reacts to hashchange', () => {
 
   assert.equal(doc.querySelector('[data-page="plugins"]').hidden, false);
   assert.equal(doc.querySelector('[data-tab="plugins"]').getAttribute('aria-current'), 'page');
+});
+
+test('activeTabFromHash maps #catalog to plugins and #line to system', () => {
+  assert.equal(activeTabFromHash('#catalog'), 'plugins');
+  assert.equal(activeTabFromHash('#line'), 'system');
+});
+
+test('hero CTAs on the real page keep or switch tabs correctly', () => {
+  const html = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
+  const dom = new JSDOM(html, { url: 'https://example.test/#plugins' });
+  const { document: doc, window: win } = dom.window;
+  initTabs(doc, win);
+  const visible = () => [...doc.querySelectorAll('[data-page]')].filter((s) => !s.hidden).map((s) => s.dataset.page);
+  const go = (href) => {
+    assert.ok(doc.querySelector(`a.btn[href="${href}"]`), `CTA ${href} exists`);
+    win.location.hash = href;
+    win.dispatchEvent(new win.Event('hashchange'));
+  };
+  assert.deepEqual(visible(), ['plugins']);
+  go('#catalog');
+  assert.deepEqual(visible(), ['plugins']);
+  go('#system');
+  assert.deepEqual(visible(), ['system']);
+  go('#line');
+  assert.deepEqual(visible(), ['system']);
 });
