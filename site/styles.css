@@ -5,6 +5,7 @@
   --you:#FF8A57; --soft:#B7BCC6; --card:#1A2230; --line2:#2C3647;
   --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
   --sans:Archivo,'Helvetica Neue',Arial,sans-serif;
+  --ok-fg:#8FE0B6; --ok-bd:#2E6B4B;
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;margin:0}
@@ -28,7 +29,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--you);outline-offset
 .seg-toggle button{white-space:nowrap;font:500 11.5px var(--mono);color:var(--muted);background:none;border:0;padding:4px 9px;border-radius:3px;cursor:pointer}
 .seg-toggle button[aria-pressed=true]{background:var(--card);color:var(--text)}
 
-/* hero (left column only; the mockup's right-hand panels are separate work) */
+/* hero (left column plus the Plugins install panel; the other right-hand panels are separate work) */
 .hero .wrap{padding-block:28px;display:grid;grid-template-columns:7fr 4fr;gap:24px 8%;align-items:center}
 .hero .wrap>*{min-width:0}
 .hero h1{margin:0;font-size:clamp(28px,3.4vw,42px);line-height:1.02;font-weight:800;letter-spacing:-.035em;text-wrap:balance}
@@ -37,6 +38,29 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--you);outline-offset
 .btns{display:flex;flex-wrap:wrap;gap:12px}
 .btn{padding:10px 16px;font-size:14px;font-weight:600;text-decoration:none;border-radius:6px;border:1px solid #3A4557}
 .btn.pri{background:var(--you);border-color:var(--you);color:var(--bg)}
+
+/* plugins hero: install panel */
+.install{padding:14px 16px;background:#161D28;border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;gap:10px;font-family:var(--mono)}
+.install .lbl{font-size:11px;letter-spacing:.08em;color:#7E8694}
+.install .step{display:flex;flex-direction:column;gap:6px}
+.install .step span{font-size:11px;color:#7E8694}
+.install code{font-family:var(--mono);font-size:13px;padding:10px 12px;background:var(--bg);border:1px solid var(--line2);border-radius:4px;overflow-x:auto;white-space:nowrap}
+.install code b{color:var(--you);font-weight:500}
+.hostsw{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hostsw .seg-toggle button{font-size:11px}
+.install code.cmd{display:flex;align-items:flex-start;gap:10px;min-width:0;white-space:normal;overflow:visible}
+.cmd .c{flex:1;min-width:0;overflow-wrap:anywhere;line-height:1.5}
+.cmd b{flex-shrink:0}
+.cp{flex-shrink:0;font:500 11px var(--mono);color:var(--muted);background:var(--card);border:1px solid var(--line2);border-radius:4px;padding:2px 8px;cursor:pointer}
+.cp:hover{color:var(--text)} .cp.ok{color:var(--ok-fg);border-color:var(--ok-bd)}
+.install .note{margin:0;font-family:var(--sans);font-size:12px;color:#7E8694;line-height:1.45}
+.install .note code{display:inline;padding:1px 5px;font-size:11.5px;white-space:nowrap}
+[data-page=plugins].hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,680px);gap:24px 56px}
+.install code.cmd{font-size:12.5px}
+.cmd .c{overflow-wrap:normal;white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+.cmd .c::-webkit-scrollbar{display:none}
+@media (max-width:1100px){[data-page=plugins].hero .wrap{grid-template-columns:1fr}}
+@media (max-width:760px){.cmd .c{white-space:normal;overflow-wrap:anywhere;overflow:visible}}
 
 @media (max-width:900px){
   .hero .wrap{grid-template-columns:1fr}
