@@ -20,6 +20,7 @@ import {
   chainsView,
   badge,
   initStats,
+  fmtKpi,
 } from './stats.js';
 
 const html = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
@@ -77,17 +78,26 @@ test('initStats renders KPI tiles and a one-day badge from the data branch', asy
   const { doc } = await setup();
   const tiles = doc.querySelectorAll('#kstrip .kt');
   assert.equal(tiles.length, 6);
-  for (const t of tiles) {
-    const b = t.querySelector('b');
-    assert.ok(b && /\d/.test(b.textContent), `tile value is numeric: ${t.textContent}`);
-    assert.ok(t.querySelector('svg'), 'tile has a sparkline');
-  }
+  for (const t of tiles) assert.ok(t.querySelector('svg'), 'tile has a sparkline');
+  // Rendered values are the kpis() values of the latest day, formatted (not just "some digit").
+  const rendered = [...tiles].map((t) => [t.dataset.kpi, t.querySelector('b').textContent]);
+  assert.deepEqual(rendered, kpis([day(LATEST)]).map((k) => [k.key, fmtKpi(k.key, k.value)]));
+  assert.deepEqual(rendered.map((r) => r[1]), ['0.26%', '0.04%', '89.5%', '0%', '100%', '18']);
   const sample = doc.querySelector('#stats .sample');
   assert.ok(sample, '.sample badge exists');
   const expected = MESSAGES.en['stats.sample.one'].replace('{n}', '1');
   assert.equal(sample.textContent.trim(), expected);
   assert.ok(!/coming soon/i.test(sample.textContent));
   assert.ok(!/30/.test(sample.textContent), 'a single day never claims 30 days');
+});
+
+test('initStats renders the latest of several days, not the first', async () => {
+  const calls = [];
+  const { doc } = await setup({ fetchImpl: makeFetch(calls, { days: INDEX.days }) });
+  const vals = [...doc.querySelectorAll('#kstrip .kt b')].map((b) => b.textContent);
+  assert.deepEqual(vals, ['0.26%', '0.04%', '89.5%', '0%', '100%', '18']);
+  const sample = doc.querySelector('#stats .sample').textContent.trim();
+  assert.equal(sample, MESSAGES.en['stats.sample.many'].replace('{n}', '4'));
 });
 
 test('initStats shows the error state and does not throw when the index fetch rejects', async () => {
@@ -191,9 +201,22 @@ test('kpis values are computed from the latest day totals', () => {
   close(v28.completed, 45 / 66);
 });
 
-test('kpi series are plain numbers ordered like the input days', () => {
-  const chains = kpis(ALL).find((t) => t.key === 'chains').series;
-  assert.deepEqual(chains, [65, 21, 64, 18]);
+test('kpi series carry each day own value, ordered like the input days', () => {
+  const by = Object.fromEntries(kpis(ALL).map((t) => [t.key, t.series]));
+  const T = ALL.map((d) => d.totals);
+  assert.deepEqual(by.chains, [65, 21, 64, 18]);
+  assert.deepEqual(by.churn, T.map((t) => t.branch_churn.value));
+  assert.deepEqual(by.rework, T.map((t) => t.main_rework.value));
+  assert.deepEqual(by.completed, T.map((t) => { const c = t.throughput.closed; return c.completed / (c.completed + c.manual + c.not_planned + c.other); }));
+  assert.deepEqual(by.autoAnswered, T.map((t) => { const e = t.escalations; return e.auto_answered / (e.auto_answered + e.escalated + e.in_progress); }));
+  assert.deepEqual(by.releasedWithoutAsking, T.map((t) => t.clarification.released_without_asking / t.clarification.released));
+  for (const k of Object.keys(by)) assert.ok(new Set(by[k]).size > 1, `${k} series varies across the fixture days`);
+});
+
+test('point-in-time kpi values take the latest (last) day when several days are given', () => {
+  const latestOnly = kpis(ONE).map((t) => t.value);
+  assert.deepEqual(kpis(ALL).map((t) => t.value), latestOnly);
+  assert.notDeepEqual(kpis([day('2026-09-26')]).map((t) => t.value), latestOnly, 'fixture days differ');
 });
 
 test('churnSeries and throughputSeries give one point per day with the right fields', () => {
@@ -202,6 +225,12 @@ test('churnSeries and throughputSeries give one point per day with the right fie
     assert.equal(throughputSeries(days).length, days.length);
   }
   assert.deepEqual(churnSeries(ALL).map((p) => p.date), INDEX.days);
+  assert.deepEqual(churnSeries(ALL).map((p) => p.churn), ALL.map((d) => d.totals.branch_churn.value));
+  assert.deepEqual(churnSeries(ALL).map((p) => p.rework), ALL.map((d) => d.totals.main_rework.value));
+  assert.deepEqual(throughputSeries(ALL).map((p) => p.completed), ALL.map((d) => d.totals.throughput.closed.completed));
+  assert.deepEqual(throughputSeries(ALL).map((p) => p.released), ALL.map((d) => d.totals.throughput.events.released));
+  assert.deepEqual(throughputSeries(ALL).map((p) => p.manual), ALL.map((d) => d.totals.throughput.closed.manual));
+  assert.deepEqual(throughputSeries(ALL).map((p) => p.not_planned), ALL.map((d) => d.totals.throughput.closed.not_planned));
   close(churnSeries(ONE)[0].churn, 0.0026);
   close(churnSeries(ONE)[0].rework, 0.0004);
   assert.deepEqual(throughputSeries([day('2026-09-28')])[0], {
@@ -227,12 +256,17 @@ test('cycleRows come back in STAGES order with human-readable labels in both lan
   const created = rows.find((r) => r.key === 'created_to_released');
   close(created.median, 0.365);
   close(created.p90, 21.2561);
+  // latest day wins: 2026-09-26 (first) has a different created_to_released median
+  assert.deepEqual(cycleRows(ALL), rows);
+  assert.notDeepEqual(cycleRows([day('2026-09-26')]), rows);
 });
 
 test('roundsRows reads the selected lane of the latest day in GATES order', () => {
   const rows = roundsRows(ONE, 'dev');
   assert.deepEqual(rows.map((r) => r.gate), GATES);
   assert.deepEqual(rows.find((r) => r.gate === 'plan-critic'), { gate: 'plan-critic', median: 1, p90: 2, avg: 1.4667 });
+  assert.deepEqual(roundsRows(ALL, 'dev'), rows, 'latest day wins over the first');
+  assert.notDeepEqual(roundsRows([day('2026-09-26')], 'dev'), rows, 'fixture days differ');
   for (const g of GATES) for (const lang of ['en', 'de']) assert.ok(MESSAGES[lang][`stats.gate.${g}`], `${lang} gate label ${g}`);
 });
 
@@ -245,9 +279,13 @@ test('roundsRows(dev) differs from roundsRows(prose) on a day whose lanes differ
   const prose = roundsRows(days, 'prose');
   assert.notDeepEqual(dev, prose);
   assert.deepEqual(prose.find((r) => r.gate === 'review'), { gate: 'review', median: 4, p90: 6, avg: 3.5 });
-  const none = roundsRows(ONE, 'prose'); // 2026-09-30: prose gates are {}
-  assert.ok(none.length > 0 && none.every((r) => r.median === 0 && r.p90 === 0 && r.avg === 0));
-  assert.ok(roundsRows(ONE, 'nonexistent').every((r) => r.median === 0));
+  const zero = (rows) => {
+    assert.equal(rows.length, GATES.length, 'one row per gate even without data');
+    assert.deepEqual(rows.map((r) => r.gate), GATES);
+    assert.ok(rows.every((r) => r.median === 0 && r.p90 === 0 && r.avg === 0));
+  };
+  zero(roundsRows(ONE, 'prose')); // 2026-09-30: prose gates are {}
+  zero(roundsRows(ONE, 'nonexistent'));
 });
 
 test('escalationFunnel total is the sum of its parts and reasons are [reason, n] pairs', () => {
@@ -258,6 +296,7 @@ test('escalationFunnel total is the sum of its parts and reasons are [reason, n]
   assert.equal(f.total, f.auto_answered + f.escalated + f.in_progress);
   assert.deepEqual(f.reasons, [['blocked', 3], ['failed', 1]]);
   assert.deepEqual(escalationFunnel(ONE).reasons, []);
+  assert.deepEqual(escalationFunnel([day('2026-09-28'), day(LATEST)]), escalationFunnel(ONE), 'latest day wins');
 });
 
 test('clarification returns the split counts from the latest day', () => {
@@ -269,6 +308,8 @@ test('clarification returns the split counts from the latest day', () => {
   assert.equal(c.questions, 1);
   assert.equal(c.lane_splits, 1);
   assert.equal(c.re_cuts, 2);
+  assert.deepEqual(clarification([day('2026-09-28'), day(LATEST)]), clarification(ONE), 'latest day wins');
+  assert.equal(clarification([day('2026-09-28'), day(LATEST)]).frames, 8);
 });
 
 test('clarification buckets a questions map into a numerically sorted histogram', () => {
@@ -292,6 +333,9 @@ test('chainsView reports empty only when there are no chains', () => {
   assert.equal(some.empty, false);
   assert.equal(some.chains.length, 3);
   assert.equal(some.detected, 3);
+  const mixed = chainsView([day('2026-09-27'), day(LATEST)]); // latest has no chains
+  assert.equal(mixed.empty, true);
+  assert.equal(mixed.active, 18);
 });
 
 test('badge uses the one-day key for a single day and the plural key otherwise', () => {
@@ -303,13 +347,15 @@ test('badge uses the one-day key for a single day and the plural key otherwise',
 
 test('every transform tolerates a day with empty totals and never yields NaN', () => {
   for (const t of kpis(EMPTY)) {
-    assert.ok(Number.isFinite(t.value), `${t.key} is finite`);
+    assert.equal(t.value, 0, `${t.key} is exactly 0 for a 0 denominator`);
     assert.equal(t.series.length, 1);
   }
   assert.equal(churnSeries(EMPTY).length, 1);
   assert.equal(throughputSeries(EMPTY).length, 1);
   assert.deepEqual(throughputMini(EMPTY), { completed: 0, manual: 0, not_planned: 0, released: 0 });
   assert.equal(cycleRows(EMPTY).length, STAGES.length);
+  assert.ok(cycleRows(EMPTY).every((r) => r.median === 0 && r.p90 === 0));
+  assert.equal(roundsRows(EMPTY, 'dev').length, GATES.length);
   assert.ok(roundsRows(EMPTY, 'dev').every((r) => r.median === 0));
   assert.equal(escalationFunnel(EMPTY).total, 0);
   assert.equal(clarification(EMPTY).frames, 0);
@@ -338,7 +384,8 @@ test('lane toggle re-renders rounds from the selected lane without refetching', 
   const after = doc.querySelector('#h-rounds').textContent;
   assert.notEqual(after, before);
   assert.ok(after.includes(MESSAGES.en['stats.gate.review']));
-  assert.ok(!after.includes(MESSAGES.en['stats.gate.plan-critic']), 'prose lane has no plan-critic row');
+  // roundsRows returns a zero row for every gate; the renderer omits gates the lane never ran.
+  assert.ok(!after.includes(MESSAGES.en['stats.gate.plan-critic']), 'renderer omits the all-zero plan-critic row');
   assert.equal(prose.getAttribute('aria-pressed'), 'true');
   assert.equal(dev.getAttribute('aria-pressed'), 'false');
   assert.equal(calls.length, n, 'no refetch on toggle');

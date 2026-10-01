@@ -70,6 +70,73 @@
 </div>
 </div>
 </section>
+<section id="stats" class="statsec" data-page="system">
+<div class="wrap">
+<div class="stats" aria-labelledby="stats-h">
+<div class="shead">
+<div>
+<h3 id="stats-h" data-i18n="stats.title">Critics rewrite code before it lands, not after.</h3>
+<p data-i18n="stats.sub">Nightly numbers across every seretos-agents repo, read straight from ticket comments, event blocks and git history — no model in the loop.</p>
+</div>
+<span class="sample" data-i18n="stats.sample.loading">loading live numbers…</span>
+</div>
+<div class="kstrip" id="kstrip"></div>
+<div class="sg two">
+<figure class="sc">
+<header><h4 data-i18n="stats.churn.title">Where code gets rewritten</h4><a class="src" href="https://github.com/seretos-agents/ecosystem-statistics/issues/9" target="_blank" rel="noopener">#9 churn</a></header>
+<p class="why" data-i18n="stats.churn.why">High churn on the branch means critics forced rewrites before merge. Rework on main means merged code had to be fixed shortly after.</p>
+<div class="lg"><span><i class="ln" style="background:var(--sys)"></i><span data-i18n="stats.churn.lg.churn">Rewritten on the branch</span> <b id="lg-churn"></b></span><span><i class="ln" style="background:var(--you)"></i><span data-i18n="stats.churn.lg.rework">Reworked after merge</span> <b id="lg-rework"></b></span></div>
+<div class="plot" id="p-churn"></div>
+<div class="axis"></div>
+</figure>
+<figure class="sc">
+<header><h4 data-i18n="stats.thru.title">Tickets through the line</h4><a class="src" href="https://github.com/seretos-agents/ecosystem-statistics/issues/14" target="_blank" rel="noopener">#14 throughput</a></header>
+<p class="why" data-i18n="stats.thru.why">Closed per day by outcome. A manual close never saw a green CI — it did not come out of the pipeline.</p>
+<div class="lg"><span><i style="background:var(--sys)"></i><span data-i18n="stats.thru.completed">completed</span></span><span><i style="background:var(--you)"></i><span data-i18n="stats.thru.manual">closed by hand</span></span><span><i style="background:var(--line2)"></i><span data-i18n="stats.thru.not_planned">not planned</span></span><span><i class="ln" style="background:var(--ok-fg)"></i><span data-i18n="stats.thru.released">released</span></span></div>
+<div class="plot" id="p-thru"></div>
+<div class="axis"></div>
+<div class="mini q4" id="m-thru"></div>
+</figure>
+</div>
+<div class="sg eq">
+<figure class="sc">
+<header><h4 data-i18n="stats.cycle.title">Where tickets wait</h4><a class="src" href="https://github.com/seretos-agents/ecosystem-statistics/issues/14" target="_blank" rel="noopener">#14 cycle times</a></header>
+<p class="why" data-i18n="stats.cycle.why">Median (solid) and p90 (faded) per stage. The slowest stage is the one to fix next — counting tickets alone hides it.</p>
+<div class="hb wide" id="h-cycle"></div>
+</figure>
+<figure class="sc">
+<header><h4 data-i18n="stats.rounds.title">Critic rounds per gate</h4><div><a class="src" href="https://github.com/seretos-agents/ecosystem-statistics/issues/12" target="_blank" rel="noopener">#12 rounds</a>
+<div class="seg-toggle" role="group" aria-label="Lane"><button type="button" data-lane="dev" aria-pressed="true" data-i18n="stats.rounds.lane.dev">dev lane</button><button type="button" data-lane="prose" aria-pressed="false" data-i18n="stats.rounds.lane.prose">prose lane</button></div></div></header>
+<p class="why" data-i18n="stats.rounds.why">Rounds a gate needed per ticket: median and p90. Gates the selected lane never ran are left out.</p>
+<div class="lg"><span><i style="background:var(--sys)"></i><span data-i18n="stats.rounds.lg.median">median</span></span><span><i style="background:var(--sys-bd)"></i><span data-i18n="stats.rounds.lg.p90">p90</span></span><span><i style="border-left:1px solid var(--bad-fg);width:0;height:10px;border-radius:0"></i><span data-i18n="stats.rounds.lg.cap">hard cap 6</span></span></div>
+<div class="hb" id="h-rounds"></div>
+<div class="mini" id="m-rounds"></div>
+</figure>
+</div>
+<div class="sg three">
+<figure class="sc">
+<header><h4 data-i18n="stats.esc.title">When it reaches you</h4><a class="src" href="https://github.com/seretos-agents/ecosystem-statistics/issues/11" target="_blank" rel="noopener">#11 escalations</a></header>
+<p class="why" data-i18n="stats.esc.why">Most blocks are answered by automatic triage. What is left lands on your desk — often a sign the ticket was cut badly.</p>
+<div class="funnel" id="f-esc"></div>
+<div class="chips" id="c-esc"></div>
+</figure>
+<figure class="sc">
+<header><h4 data-i18n="stats.gk.title">Gatekeeper, before dispatch</h4><a class="src" href="https://github.com/seretos-agents/ecosystem-statistics/issues/15" target="_blank" rel="noopener">#15 clarification</a></header>
+<p class="why" data-i18n="stats.gk.why">Tickets the gatekeeper released alone vs. ones it had to ask about — and how many questions it needed.</p>
+<div class="split" id="s-gk"></div>
+<div class="qh" id="q-gk"></div>
+<div class="chips" id="c-gk"></div>
+</figure>
+<figure class="sc">
+<header><h4 data-i18n="stats.chain.title">Fixes that didn't fix</h4><a class="src" href="https://github.com/seretos-agents/ecosystem-statistics/issues/13" target="_blank" rel="noopener">#13 regression chains</a></header>
+<p class="why" data-i18n="stats.chain.why">Chains of tickets chasing the same symptom, across repos. Throughput numbers hide these.</p>
+<div class="mini q4" id="m-chain"></div>
+<div class="chains" id="l-chain"></div>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section class="hero" data-page="plugins" hidden>
 <div class="wrap">
 <div class="stack">
@@ -109,10 +176,12 @@ import { initI18n } from './i18n.js';
 import { initHosts } from './hosts.js';
 import { initCatalog } from './catalog.js';
 import { initBoard } from './board.js';
+import { initStats } from './stats.js';
 initTabs(document, window);
 initHosts(document, window);
 initCatalog(document, window);
 initBoard(document, window);
+initStats(document, window);
 initI18n(document, window);
 </script>
 </body>
