@@ -12,6 +12,13 @@ export const MESSAGES = {
     'plugins.title': 'Plug in what your project needs.',
     'plugins.pitch': 'Every plugin works on its own or as a module in the production line. Add the marketplace once, then install only what you need — in Claude Code or Codex.',
     'plugins.cta.catalog': 'Browse the catalog',
+    'install.label': 'INSTALL',
+    'install.step.add': '01 · add the marketplace',
+    'install.step.install': '02 · install a plugin',
+    'install.copy': 'copy',
+    'install.copied': 'copied',
+    'install.note.claude': 'Slash commands — type them inside a Claude Code session.',
+    'install.note.codex': 'Shell commands — run them in your terminal.',
   },
   de: {
     'nav.system': 'Das System',
@@ -23,6 +30,13 @@ export const MESSAGES = {
     'plugins.title': 'Steck ein, was dein Projekt braucht.',
     'plugins.pitch': 'Jedes Plugin funktioniert für sich oder als Modul in der Fertigungsstraße. Füge den Marketplace einmal hinzu und installiere dann nur, was du brauchst — in Claude Code oder Codex.',
     'plugins.cta.catalog': 'Katalog durchsuchen',
+    'install.label': 'INSTALLIEREN',
+    'install.step.add': '01 · Marketplace hinzufügen',
+    'install.step.install': '02 · Plugin installieren',
+    'install.copy': 'kopieren',
+    'install.copied': 'kopiert',
+    'install.note.claude': 'Slash-Befehle — tippe sie in einer Claude-Code-Sitzung ein.',
+    'install.note.codex': 'Shell-Befehle — führe sie in deinem Terminal aus.',
   },
 };
 

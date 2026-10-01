@@ -54,6 +54,12 @@
 <a class="btn" href="#system" data-i18n="cta.how">How the system works</a>
 </div>
 </div>
+<div class="install" id="hostbox">
+<div class="hostsw"><div class="lbl" data-i18n="install.label">INSTALL</div><div class="seg-toggle" role="group" aria-label="Agent"></div></div>
+<div class="step"><span data-i18n="install.step.add">01 · add the marketplace</span><code class="cmd"><b>$</b><span class="c" data-cmd="add"></span><button class="cp" type="button" data-i18n="install.copy">copy</button></code></div>
+<div class="step"><span data-i18n="install.step.install">02 · install a plugin</span><code class="cmd"><b>$</b><span class="c" data-cmd="install"></span><button class="cp" type="button" data-i18n="install.copy">copy</button></code></div>
+<p class="note" id="hostnote" hidden></p>
+</div>
 </div>
 </section>
 </main>
@@ -61,7 +67,9 @@
 <script type="module">
 import { initTabs } from './tabs.js';
 import { initI18n } from './i18n.js';
+import { initHosts } from './hosts.js';
 initTabs(document, window);
+initHosts(document, window);
 initI18n(document, window);
 </script>
 </body>
