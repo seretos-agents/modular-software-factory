@@ -44,6 +44,32 @@
 </div>
 </div>
 </section>
+<section id="line" class="line" data-page="system">
+<div class="wrap">
+<div class="lhead">
+<h2 data-i18n="board.title">You fill the backlog, answer questions and release. The system does the rest.</h2>
+<div class="legend">
+<div><i style="background:var(--you)"></i><span data-i18n="board.legend.you">you</span><em data-i18n="board.legend.you.desc">— write · answer · release</em></div>
+<div><i style="background:var(--sys)"></i><span data-i18n="board.legend.sys">system</span><em data-i18n="board.legend.sys.desc">— gatekeeper · orchestrator · workers</em></div>
+</div>
+</div>
+<div class="narr">
+<span class="who"></span>
+<span class="txt"></span>
+<span class="cnt"></span>
+<div class="ctrl">
+<button type="button" data-i18n-aria-label="board.ctrl.prev" aria-label="Previous step"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M12 2.5v11L4.5 8zM2.5 2.5H4v11H2.5z"/></svg></button>
+<button type="button" class="play" data-i18n-aria-label="board.ctrl.pause" aria-label="Pause"></button>
+<button type="button" data-i18n-aria-label="board.ctrl.next" aria-label="Next step"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.5v11L11.5 8zM12 2.5h1.5v11H12z"/></svg></button>
+</div>
+</div>
+<div class="bar"><div></div></div>
+<div class="scroller">
+<div class="paused" data-i18n="board.paused">paused</div>
+<div class="board" id="board"></div>
+</div>
+</div>
+</section>
 <section class="hero" data-page="plugins" hidden>
 <div class="wrap">
 <div class="stack">
@@ -82,9 +108,11 @@ import { initTabs } from './tabs.js';
 import { initI18n } from './i18n.js';
 import { initHosts } from './hosts.js';
 import { initCatalog } from './catalog.js';
+import { initBoard } from './board.js';
 initTabs(document, window);
 initHosts(document, window);
 initCatalog(document, window);
+initBoard(document, window);
 initI18n(document, window);
 </script>
 </body>
