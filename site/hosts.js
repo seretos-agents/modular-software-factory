@@ -19,9 +19,14 @@ export const HOSTS = [
   },
 ];
 
-export function renderHostButtons(doc, hosts) {
-  const group = doc.querySelector('#hostbox .seg-toggle');
+export function installCommandFor(host, pluginName) {
+  return pluginName ? host.installCommand.replaceAll('<plugin-name>', pluginName) : host.installCommand;
+}
+
+export function renderHostButtons(root, hosts) {
+  const group = root.querySelector('.seg-toggle');
   if (!group) return;
+  const doc = root.ownerDocument;
   group.replaceChildren(
     ...hosts.map((h) => {
       const b = doc.createElement('button');
@@ -34,19 +39,19 @@ export function renderHostButtons(doc, hosts) {
   );
 }
 
-export function selectHost(doc, hosts, id, dict = MESSAGES) {
+export function selectHost(root, hosts, id, dict = MESSAGES, pluginName) {
   const host = hosts.find((h) => h.id === id);
   if (!host) return;
-  doc.querySelectorAll('#hostbox [data-host]').forEach((b) => {
+  root.querySelectorAll('[data-host]').forEach((b) => {
     b.setAttribute('aria-pressed', String(b.dataset.host === id));
   });
-  doc.querySelector('#hostbox [data-cmd="add"]').textContent = host.addCommand;
-  doc.querySelector('#hostbox [data-cmd="install"]').textContent = host.installCommand;
-  const note = doc.getElementById('hostnote');
+  root.querySelector('[data-cmd="add"]').textContent = host.addCommand;
+  root.querySelector('[data-cmd="install"]').textContent = installCommandFor(host, pluginName);
+  const note = root.querySelector('.note');
   if (!note) return;
   if (host.note) {
     note.dataset.i18n = host.note;
-    note.textContent = translate(dict, doc.documentElement.lang || 'en', host.note);
+    note.textContent = translate(dict, root.ownerDocument.documentElement.lang || 'en', host.note);
     note.hidden = false;
   } else {
     delete note.dataset.i18n;
@@ -71,14 +76,16 @@ function setCopyLabel(btn, key, dict, doc) {
   btn.textContent = translate(dict, doc.documentElement.lang || 'en', key);
 }
 
-export function initHosts(doc, win, hosts = HOSTS, dict = MESSAGES) {
-  if (!doc.getElementById('hostbox') || hosts.length === 0) return;
-  renderHostButtons(doc, hosts);
-  selectHost(doc, hosts, hosts[0].id, dict);
-  doc.querySelectorAll('#hostbox [data-host]').forEach((b) => {
-    b.addEventListener('click', () => selectHost(doc, hosts, b.dataset.host, dict));
+// Binds one install panel (the hero's #hostbox or a modal's .pbox) to the host data.
+export function bindHostPanel(root, win, hosts = HOSTS, dict = MESSAGES, { pluginName, initialId } = {}) {
+  if (!root || hosts.length === 0) return;
+  const doc = root.ownerDocument;
+  renderHostButtons(root, hosts);
+  selectHost(root, hosts, hosts.some((h) => h.id === initialId) ? initialId : hosts[0].id, dict, pluginName);
+  root.querySelectorAll('[data-host]').forEach((b) => {
+    b.addEventListener('click', () => selectHost(root, hosts, b.dataset.host, dict, pluginName));
   });
-  doc.querySelectorAll('#hostbox .cp').forEach((btn) => {
+  root.querySelectorAll('.cp').forEach((btn) => {
     btn.addEventListener('click', async () => {
       const text = btn.parentElement.querySelector('.c').textContent;
       if (!(await copyCommand(win, text))) return;
@@ -90,4 +97,8 @@ export function initHosts(doc, win, hosts = HOSTS, dict = MESSAGES) {
       }, 1500);
     });
   });
+}
+
+export function initHosts(doc, win, hosts = HOSTS, dict = MESSAGES) {
+  bindHostPanel(doc.getElementById('hostbox'), win, hosts, dict);
 }

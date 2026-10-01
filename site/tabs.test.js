@@ -64,12 +64,24 @@ test('activeTabFromHash maps #catalog to plugins and #line to system', () => {
   assert.equal(activeTabFromHash('#line'), 'system');
 });
 
+test('a #plugins/<name> deep link resolves to the plugins tab (R1 driving test)', () => {
+  assert.equal(activeTabFromHash('#plugins/agent-harness'), 'plugins');
+  assert.equal(activeTabFromHash('#system'), 'system');
+  assert.equal(activeTabFromHash(''), 'system');
+  const dom = buildDom('#plugins/agent-harness');
+  const { document: doc, window: win } = dom.window;
+  initTabs(doc, win);
+  assert.equal(doc.querySelector('[data-page="plugins"]').hidden, false);
+  assert.equal(doc.querySelector('[data-page="system"]').hidden, true);
+  assert.equal(doc.querySelector('[data-tab="plugins"]').getAttribute('aria-current'), 'page');
+});
+
 test('hero CTAs on the real page keep or switch tabs correctly', () => {
   const html = readFileSync(new URL('./index.html', import.meta.url), 'utf8');
   const dom = new JSDOM(html, { url: 'https://example.test/#plugins' });
   const { document: doc, window: win } = dom.window;
   initTabs(doc, win);
-  const visible = () => [...doc.querySelectorAll('[data-page]')].filter((s) => !s.hidden).map((s) => s.dataset.page);
+  const visible = () => [...new Set([...doc.querySelectorAll('[data-page]')].filter((s) => !s.hidden).map((s) => s.dataset.page))];
   const go = (href) => {
     assert.ok(doc.querySelector(`a.btn[href="${href}"]`), `CTA ${href} exists`);
     win.location.hash = href;
