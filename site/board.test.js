@@ -83,6 +83,15 @@ test('state machine tracks #26 through rejections to merged', () => {
   const next = applyFrame(s0, SCRIPT[1]);
   assert.equal(JSON.stringify(s0), before, 'applyFrame must not mutate its input');
   assert.notEqual(next, s0);
+
+  // the process ops (start/step/finish) must not mutate their input either
+  for (let i = 1; i < SCRIPT.length; i += 1) {
+    const prior = stateAt(i - 1);
+    const snap = JSON.stringify(prior);
+    applyFrame(prior, SCRIPT[i]);
+    assert.equal(JSON.stringify(prior), snap, `frame ${SCRIPT[i].id} must not mutate its input`);
+  }
+  assert.ok(stateAt(r1 - 1).active, 'a frame with an active process was exercised above');
 });
 
 test('state machine edge cases: every frame reduces, last frame all merged, bundle CI fails then passes', () => {
@@ -96,8 +105,10 @@ test('state machine edge cases: every frame reduces, last frame all merged, bund
     assert.ok(c.badges.includes('board.badge.merged'), `#${c.id} merged at the end`);
   }
   const fail = stateAt(idx('bundle-ci-r1')).active;
+  assert.equal(fail.pkg, '28+29');
   assert.deepEqual({ status: fail.rows[6].status, round: fail.rows[6].round }, { status: 'failed', round: 1 });
   const ok = stateAt(idx('bundle-ci-r2')).active;
+  assert.equal(ok.pkg, '28+29');
   assert.deepEqual({ status: ok.rows[6].status, round: ok.rows[6].round }, { status: 'done', round: 2 });
 });
 
@@ -127,6 +138,9 @@ test('renders code and prose process rows', () => {
   check('30-sc-r1', 'prose');
   assert.equal(PROCESS.prose.agent, 'agent-autonomous-prompt-engineer');
   assert.notDeepEqual(PROCESS.code.steps, PROCESS.prose.steps);
+  const labels = (kind) => PROCESS[kind].steps.map((k) => MESSAGES.en[k]);
+  assert.deepEqual(labels('code'), ['Plan', 'Plan critic', 'Tests first', 'Test critic', 'Implement', 'Review', 'PR·CI']);
+  assert.deepEqual(labels('prose'), ['Plan', 'Scenario critic', 'Baseline', 'Write', 'Evidence', 'Review', 'PR·CI']);
 });
 
 test('rejection frame renders rejected row, round and runner', () => {
@@ -137,7 +151,7 @@ test('rejection frame renders rejected row, round and runner', () => {
   const row = doc.querySelectorAll('#board .proc .row')[1];
   assert.ok(row.classList.contains('st-rejected'));
   assert.ok(row.textContent.includes(MESSAGES.en['board.round']));
-  assert.match(cleanText(row), /1/);
+  assert.match(cleanText(row), new RegExp(String.raw`${MESSAGES.en['board.round']}\s*1(?!\d)`), 'row shows "round 1"');
   const runner = doc.querySelector('#board .runner');
   assert.ok(runner.classList.contains('st-rejected'));
   assert.equal(runner.style.top, '68px');
@@ -145,6 +159,7 @@ test('rejection frame renders rejected row, round and runner', () => {
   board.go(r1 + 1);
   assert.equal(doc.querySelector('#board .runner').style.top, '0px');
   assert.ok(doc.querySelectorAll('#board .proc .row')[0].classList.contains('st-current'));
+  assert.match(cleanText(doc.querySelectorAll('#board .proc .row')[0]), new RegExp(String.raw`${MESSAGES.en['board.round']}\s*2(?!\d)`), 'back at the author in round 2');
 
   board.go(idx('26-merged'));
   const done = doc.querySelector('#board .col[data-col="done"]');
@@ -174,13 +189,14 @@ test('controls step, pause, loop; reduced motion starts paused', () => {
   assert.equal(cleanText(doc.querySelector('.cnt')), `2 / ${N}`, 'interval tick advances a frame');
 
   toggle.click();
-  assert.ok(timers.cleared.length >= 1, 'pause clears the interval');
+  assert.deepEqual(timers.cleared, [1], 'pause clears the handle the first interval returned');
   assert.ok(doc.querySelector('.paused').classList.contains('on'));
   toggle.click();
   assert.equal(timers.set.length, 2, 'resume arms a new interval');
   assert.ok(!doc.querySelector('.paused').classList.contains('on'));
 
   board.pause();
+  assert.deepEqual(timers.cleared, [1, 2], 'pause clears the resumed interval handle');
   board.go(N - 1);
   assert.equal(cleanText(doc.querySelector('.cnt')), `${N} / ${N}`);
   board.next();
@@ -225,19 +241,20 @@ test('all board keys exist in both languages; DE click re-translates the board',
   assert.notEqual(MESSAGES.de[say(gate)], MESSAGES.en[say(gate)]);
   assert.equal(cleanText(doc.querySelector('.txt')), MESSAGES.de[say(gate)]);
   const rows = [...doc.querySelectorAll('#board .proc .row')];
-  PROCESS.code.steps.forEach((key, i) => assert.ok(rows[i].textContent.includes(MESSAGES.de[key]), `row ${i} German`));
+  const labelOf = (row, key) => row.querySelector(`.rl[data-i18n="${key}"]`);
+  PROCESS.code.steps.forEach((key, i) => assert.equal(labelOf(rows[i], key)?.textContent, MESSAGES.de[key], `row ${i} German`));
 
   // frames rendered after the switch (autoplay/next) must also come out German
   board.next();
   assert.notEqual(MESSAGES.de[say(gate + 1)], MESSAGES.en[say(gate + 1)]);
   assert.equal(cleanText(doc.querySelector('.txt')), MESSAGES.de[say(gate + 1)]);
   PROCESS.code.steps.forEach((key, i) => {
-    assert.ok(doc.querySelectorAll('#board .proc .row')[i].textContent.includes(MESSAGES.de[key]), `row ${i} still German after next`);
+    assert.equal(labelOf(doc.querySelectorAll('#board .proc .row')[i], key)?.textContent, MESSAGES.de[key], `row ${i} still German after next`);
   });
 
   // a freshly built process (new active package) is German too
   board.go(idx('30-sc-r1'));
   const prow = [...doc.querySelectorAll('#board .proc[data-kind="prose"] .row')];
   assert.equal(prow.length, 7);
-  PROCESS.prose.steps.forEach((key, i) => assert.ok(prow[i].textContent.includes(MESSAGES.de[key]), `prose row ${i} German`));
+  PROCESS.prose.steps.forEach((key, i) => assert.equal(labelOf(prow[i], key)?.textContent, MESSAGES.de[key], `prose row ${i} German`));
 });
