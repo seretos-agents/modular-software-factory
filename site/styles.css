@@ -2,7 +2,7 @@
   color-scheme: dark;
   --bg:#0F141B; --grid:#1A2230; --line:#263041;
   --text:#E8E5DD; --muted:#8B93A1;
-  --you:#FF8A57;
+  --you:#FF8A57; --soft:#B7BCC6; --card:#1A2230; --line2:#2C3647;
   --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
   --sans:Archivo,'Helvetica Neue',Arial,sans-serif;
 }
@@ -24,10 +24,22 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--you);outline-offset
 .tabs a[aria-current]{background:var(--text);color:var(--bg);font-weight:600}
 .gh{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;text-decoration:none}
 
-.page{padding-block:48px}
-.placeholder{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.seg-toggle{display:flex;gap:2px;padding:2px;border:1px solid var(--line2);border-radius:5px}
+.seg-toggle button{white-space:nowrap;font:500 11.5px var(--mono);color:var(--muted);background:none;border:0;padding:4px 9px;border-radius:3px;cursor:pointer}
+.seg-toggle button[aria-pressed=true]{background:var(--card);color:var(--text)}
+
+/* hero (left column only; the mockup's right-hand panels are separate work) */
+.hero .wrap{padding-block:28px;display:grid;grid-template-columns:7fr 4fr;gap:24px 8%;align-items:center}
+.hero .wrap>*{min-width:0}
+.hero h1{margin:0;font-size:clamp(28px,3.4vw,42px);line-height:1.02;font-weight:800;letter-spacing:-.035em;text-wrap:balance}
+.hero p{margin:0;max-width:60ch;font-size:15px;line-height:1.55;color:var(--soft)}
+.stack{display:flex;flex-direction:column;gap:14px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{padding:10px 16px;font-size:14px;font-weight:600;text-decoration:none;border-radius:6px;border:1px solid #3A4557}
+.btn.pri{background:var(--you);border-color:var(--you);color:var(--bg)}
 
 @media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
   .gh span{display:none}
 }
 @media (max-width:560px){

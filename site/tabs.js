@@ -1,5 +1,5 @@
 export function activeTabFromHash(hash) {
-  return hash === '#plugins' ? 'plugins' : 'system';
+  return hash === '#plugins' || hash === '#catalog' ? 'plugins' : 'system';
 }
 
 export function applyActiveTab(doc, tab) {

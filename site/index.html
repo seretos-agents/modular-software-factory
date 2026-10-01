@@ -18,9 +18,10 @@
 </a>
 <div class="navr">
 <nav class="tabs" aria-label="Main">
-<a href="#system" data-tab="system">The System</a>
-<a href="#plugins" data-tab="plugins">Plugins</a>
+<a href="#system" data-tab="system" data-i18n="nav.system">The System</a>
+<a href="#plugins" data-tab="plugins" data-i18n="nav.plugins">Plugins</a>
 </nav>
+<div class="seg-toggle" role="group" aria-label="Language"><button type="button" data-lang="de" aria-pressed="false">DE</button><button type="button" data-lang="en" aria-pressed="true">EN</button></div>
 <a class="gh" href="https://github.com/seretos-agents/modular-software-factory" target="_blank" rel="noopener" aria-label="GitHub">
 <span>GitHub</span>
 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg>
@@ -31,17 +32,37 @@
 </div>
 
 <main>
-<section class="wrap page" data-page="system">
-<p class="placeholder">The System — coming soon.</p>
+<section class="hero" data-page="system">
+<div class="wrap">
+<div class="stack">
+<h1 data-i18n="system.title">From backlog ticket to merged pull request — unattended.</h1>
+<p data-i18n="system.pitch">Two core plugins turn your ticket board into a production line. Every other plugin in the factory is a module you can plug into it — or use on its own.</p>
+<div class="btns">
+<a class="btn pri" href="#line" data-i18n="cta.how">How the system works</a>
+<a class="btn" href="#plugins" data-i18n="system.cta.plugins">All plugins</a>
+</div>
+</div>
+</div>
 </section>
-<section class="wrap page" data-page="plugins" hidden>
-<p class="placeholder">Plugins — coming soon.</p>
+<section class="hero" data-page="plugins" hidden>
+<div class="wrap">
+<div class="stack">
+<h1 data-i18n="plugins.title">Plug in what your project needs.</h1>
+<p data-i18n="plugins.pitch">Every plugin works on its own or as a module in the production line. Add the marketplace once, then install only what you need — in Claude Code or Codex.</p>
+<div class="btns">
+<a class="btn pri" href="#catalog" data-i18n="plugins.cta.catalog">Browse the catalog</a>
+<a class="btn" href="#system" data-i18n="cta.how">How the system works</a>
+</div>
+</div>
+</div>
 </section>
 </main>
 
 <script type="module">
 import { initTabs } from './tabs.js';
+import { initI18n } from './i18n.js';
 initTabs(document, window);
+initI18n(document, window);
 </script>
 </body>
 </html>

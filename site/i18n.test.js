@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { JSDOM } from 'jsdom';
+import { JSDOM, VirtualConsole } from 'jsdom';
 import {
   MESSAGES, translate, pickLanguage, getStoredLanguage, setStoredLanguage, initI18n,
 } from './i18n.js';
@@ -119,10 +119,15 @@ test('throwing localStorage getter does not break reading, writing or switching'
   assert.equal(getStoredLanguage(bad), null);
   assert.doesNotThrow(() => setStoredLanguage(bad, 'de'));
 
-  const dom = new JSDOM(html, { url: 'https://example.test/' });
+  // jsdom reports listener exceptions to its virtual console instead of rethrowing from click()
+  const vc = new VirtualConsole();
+  const errors = [];
+  vc.on('jsdomError', (e) => errors.push(e));
+  const dom = new JSDOM(html, { url: 'https://example.test/', virtualConsole: vc });
   const w = dom.window;
   Object.defineProperty(w, 'localStorage', { get() { throw new Error('denied'); }, configurable: true });
   initI18n(w.document, w);
-  assert.doesNotThrow(() => w.document.querySelector('[data-lang="de"]').click());
+  w.document.querySelector('[data-lang="de"]').click();
+  assert.deepEqual(errors.map((e) => e.message), []);
   assert.equal(w.document.documentElement.lang, 'de');
 });
