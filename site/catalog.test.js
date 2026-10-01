@@ -121,6 +121,11 @@ test('categoryCounts respects search and tag but not the category itself', () =>
   assert.equal(live.all, 3);
   assert.equal(live.mcp, 2);
   assert.equal(live.skill, 1);
+  // the tag narrows every count
+  const tagged = Object.fromEntries(categoryCounts(PLUGINS, { q: 'git', tag: 'github' }));
+  assert.equal(tagged.all, 1);
+  assert.equal(tagged.mcp, 1);
+  assert.equal(tagged.skill, undefined);
 });
 
 test('allTags is sorted and distinct', () => {
@@ -215,6 +220,19 @@ test('R3 driving test: search, category and tag combine; no match shows the empt
   typeQuery(doc, win, 'zzz');
   assert.equal(doc.querySelectorAll('#plist .pcard').length, 0);
   assert.equal(text(doc, '#plist .empty'), MESSAGES.en['catalog.empty']);
+});
+
+test('the All and category counts ignore the selected category; #ccount follows the data', async () => {
+  const { doc, win } = await setup();
+  typeQuery(doc, win, 'git');
+  $(doc, '#cats [data-cat="mcp"]').click();
+  assert.deepEqual(
+    [...doc.querySelectorAll('#cats button')].map((b) => [b.dataset.cat, b.querySelector('em').textContent.trim()]),
+    [['all', '3'], ['mcp', '2'], ['skill', '1']],
+  );
+  const small = { ...FIXTURE, plugins: PLUGINS.slice(0, 3) };
+  const two = await setup({ catalog: small });
+  assert.ok(text(two.doc, '#ccount').startsWith('3'), text(two.doc, '#ccount'));
 });
 
 test('clicking a pressed tag again clears it', async () => {
@@ -350,7 +368,7 @@ test('R6 driving test: renderMarkdown neutralises raw HTML, scripts and javascri
 
   const a = inject(renderMarkdown('[a](javascript:alert(1))'));
   assert.equal(a.querySelector('a'), null);
-  assert.ok(a.textContent.includes('a'));
+  assert.equal(a.textContent.trim(), 'a');
 });
 
 test('renderMarkdown renders headings, lists, emphasis, code and https links', () => {

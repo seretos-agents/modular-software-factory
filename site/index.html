@@ -62,15 +62,29 @@
 </div>
 </div>
 </section>
-<section class="cat" id="catalog" data-page="plugins" hidden></section>
+<section class="cat" id="catalog" data-page="plugins" hidden>
+<div class="wrap">
+<div class="cbar"><h2 data-i18n="catalog.title">The catalog</h2><span class="ccount" id="ccount"></span></div>
+<div class="tools">
+<label class="search"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="6" cy="6" r="4.5"/><path d="m9.5 9.5 3 3"/></svg><input id="q" type="search" placeholder="Search plugins, tags, descriptions…" data-i18n-placeholder="catalog.search" autocomplete="off"></label>
+<div class="cats" id="cats" role="group" aria-label="Category"></div>
+</div>
+<div class="tagrow" id="tagrow" role="group" aria-label="Tags"></div>
+<div class="pgrid" id="plist"></div>
+<dialog class="pmodal" id="pmodal"></dialog>
+<div class="cfoot"><span data-i18n="catalog.foot.pre">Snapshot of</span> <a href="https://github.com/seretos-agents/modular-software-factory/blob/main/.claude-plugin/marketplace.json" target="_blank" rel="noopener">marketplace.json</a> · <span data-i18n="catalog.foot.mid">every plugin is pinned to a release tag of its own repo</span> · <a href="https://github.com/seretos-agents/modular-software-factory/issues" target="_blank" rel="noopener" data-i18n="catalog.foot.issue">report an issue</a></div>
+</div>
+</section>
 </main>
 
 <script type="module">
 import { initTabs } from './tabs.js';
 import { initI18n } from './i18n.js';
 import { initHosts } from './hosts.js';
+import { initCatalog } from './catalog.js';
 initTabs(document, window);
 initHosts(document, window);
+initCatalog(document, window);
 initI18n(document, window);
 </script>
 </body>

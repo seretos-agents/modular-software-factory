@@ -19,6 +19,19 @@ export const MESSAGES = {
     'install.copied': 'copied',
     'install.note.claude': 'Slash commands — type them inside a Claude Code session.',
     'install.note.codex': 'Shell commands — run them in your terminal.',
+    'catalog.title': 'The catalog',
+    'catalog.plugins': 'plugins',
+    'catalog.all': 'All',
+    'catalog.search': 'Search plugins, tags, descriptions…',
+    'catalog.empty': 'No plugin matches your search.',
+    'catalog.error': 'The catalog could not be loaded. Please try again later.',
+    'catalog.md.loading': 'Loading details…',
+    'catalog.md.error': 'The details could not be loaded.',
+    'catalog.source': 'View source on GitHub',
+    'catalog.close': 'Close',
+    'catalog.foot.pre': 'Snapshot of',
+    'catalog.foot.mid': 'every plugin is pinned to a release tag of its own repo',
+    'catalog.foot.issue': 'report an issue',
   },
   de: {
     'nav.system': 'Das System',
@@ -37,6 +50,19 @@ export const MESSAGES = {
     'install.copied': 'kopiert',
     'install.note.claude': 'Slash-Befehle — tippe sie in einer Claude-Code-Sitzung ein.',
     'install.note.codex': 'Shell-Befehle — führe sie in deinem Terminal aus.',
+    'catalog.title': 'Der Katalog',
+    'catalog.plugins': 'Plugins',
+    'catalog.all': 'Alle',
+    'catalog.search': 'Plugins, Tags, Beschreibungen durchsuchen…',
+    'catalog.empty': 'Kein Plugin passt zu deiner Suche.',
+    'catalog.error': 'Der Katalog konnte nicht geladen werden. Bitte versuche es später erneut.',
+    'catalog.md.loading': 'Details werden geladen…',
+    'catalog.md.error': 'Die Details konnten nicht geladen werden.',
+    'catalog.source': 'Quellcode auf GitHub ansehen',
+    'catalog.close': 'Schließen',
+    'catalog.foot.pre': 'Momentaufnahme von',
+    'catalog.foot.mid': 'jedes Plugin ist an ein Release-Tag seines eigenen Repos gepinnt',
+    'catalog.foot.issue': 'Problem melden',
   },
 };
 
@@ -70,6 +96,12 @@ export function applyLanguage(doc, dict, lang) {
   doc.documentElement.lang = lang;
   doc.querySelectorAll('[data-i18n]').forEach((el) => {
     el.textContent = translate(dict, lang, el.dataset.i18n);
+  });
+  doc.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    el.setAttribute('placeholder', translate(dict, lang, el.dataset.i18nPlaceholder));
+  });
+  doc.querySelectorAll('[data-i18n-aria-label]').forEach((el) => {
+    el.setAttribute('aria-label', translate(dict, lang, el.dataset.i18nAriaLabel));
   });
   doc.querySelectorAll('[data-lang]').forEach((btn) => {
     btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang));
