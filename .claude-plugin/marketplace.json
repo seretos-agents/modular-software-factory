@@ -13,12 +13,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-serena-wrapper",
-        "ref": "agent-serena-wrapper--v0.1.7"
+        "ref": "agent-serena-wrapper--v0.1.8"
       },
       "category": "skill",
-      "version": "0.1.7",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-serena-wrapper/agent-serena-wrapper--v0.1.7/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-serena-wrapper/agent-serena-wrapper--v0.1.7/description.md",
+      "version": "0.1.8",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-serena-wrapper/agent-serena-wrapper--v0.1.8/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-serena-wrapper/agent-serena-wrapper--v0.1.8/description.md",
       "tags": [
         "coding"
       ]
@@ -68,12 +68,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-ticket-orchestrator",
-        "ref": "agent-ticket-orchestrator--v0.3.4"
+        "ref": "agent-ticket-orchestrator--v0.3.5"
       },
       "category": "skill",
-      "version": "0.3.4",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-ticket-orchestrator/agent-ticket-orchestrator--v0.3.4/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-ticket-orchestrator/agent-ticket-orchestrator--v0.3.4/description.md"
+      "version": "0.3.5",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-ticket-orchestrator/agent-ticket-orchestrator--v0.3.5/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-ticket-orchestrator/agent-ticket-orchestrator--v0.3.5/description.md"
     },
     {
       "name": "agent-worktree",
@@ -202,12 +202,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-chrome-wrapper",
-        "ref": "agent-chrome-wrapper--v0.0.8"
+        "ref": "agent-chrome-wrapper--v0.0.9"
       },
       "category": "mcp",
-      "version": "0.0.8",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-chrome-wrapper/agent-chrome-wrapper--v0.0.8/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-chrome-wrapper/agent-chrome-wrapper--v0.0.8/description.md"
+      "version": "0.0.9",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-chrome-wrapper/agent-chrome-wrapper--v0.0.9/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-chrome-wrapper/agent-chrome-wrapper--v0.0.9/description.md"
     },
     {
       "name": "agent-harness",
@@ -215,12 +215,12 @@
       "source": {
         "source": "github",
         "repo": "seretos-agents/agent-harness",
-        "ref": "agent-harness--v0.0.5"
+        "ref": "agent-harness--v0.0.7"
       },
       "category": "mcp",
-      "version": "0.0.5",
-      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-harness/agent-harness--v0.0.5/assets/icon.png",
-      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-harness/agent-harness--v0.0.5/description.md"
+      "version": "0.0.7",
+      "icon": "https://raw.githubusercontent.com/seretos-agents/agent-harness/agent-harness--v0.0.7/assets/icon.png",
+      "description_url": "https://raw.githubusercontent.com/seretos-agents/agent-harness/agent-harness--v0.0.7/description.md"
     }
   ]
 }
